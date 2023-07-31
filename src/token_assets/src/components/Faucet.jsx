@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { token } from "../../../declarations/token";
 
 function Faucet() {
-
+  const [disabled, setDisabled] = useState(false);
   async function handleClick(event) {
-
+    setDisabled(true);
+    await token.payOut();
   }
 
   return (
@@ -16,7 +18,9 @@ function Faucet() {
       </h2>
       <label>Get your free DAngela tokens here! Claim 10,000 DANG coins to your account.</label>
       <p className="trade-buttons">
-        <button id="btn-payout" onClick={handleClick}>
+        <button id="btn-payout" onClick={handleClick}
+          disabled={disabled}
+        >
           Gimme gimme
         </button>
       </p>
