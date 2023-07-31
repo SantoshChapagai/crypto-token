@@ -26,9 +26,30 @@ actor Token {
 
   public shared (msg) func payOut() : async Text {
     // Debug.print(debug_show (msg.caller));
-    let amount = 10000;
-    balances.put(msg.caller, amount);
 
-    return "Success";
+    if (balances.get(msg.caller) == null) {
+      let amount = 10000;
+      balances.put(msg.caller, amount);
+
+      return "Success";
+    } else {
+      return "You have already get your free token. Buy to load your wallet";
+    };
+
+  };
+  public shared (msg) func transfer(to : Principal, amount : Nat) : async Text {
+    let fromBalance = await balanceOf(msg.caller);
+    if (fromBalance > amount) {
+      let newFromBalance : Nat = fromBalance - amount;
+      balances.put(msg.caller, newFromBalance);
+
+      let toBalance = await balanceOf(to);
+      let newToBalance = toBalance + amount;
+      balances.put(to, newToBalance);
+      return "Success";
+    } else {
+      return "insufficient fund";
+    };
+
   };
 };
