@@ -3,7 +3,7 @@ import { token, canisterId, createActor } from "../../../declarations/token";
 import { AuthClient } from "@dfinity/auth-client";
 
 
-function Faucet() {
+function Faucet(props) {
   const [disabled, setDisabled] = useState(false);
   const [buttonText, setButtonText] = useState("Gimme Gimme")
   async function handleClick(event) {
@@ -27,7 +27,7 @@ function Faucet() {
         </span>
         Faucet
       </h2>
-      <label>Get your free SANG tokens here! Claim 10,000 SANG coins to your account.</label>
+      <label>Get your free SANG tokens here! Claim 10,000 SANG coins to {props.userPrincipal}.</label>
       <p className="trade-buttons">
         <button id="btn-payout" onClick={handleClick}
           disabled={disabled}
