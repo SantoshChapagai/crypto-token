@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import { token } from "../../../declarations/token";
+import { token, canisterId, createActor } from "../../../declarations/token";
+import { AuthClient } from "@dfinity/auth-client";
+
 
 function Faucet() {
   const [disabled, setDisabled] = useState(false);
   const [buttonText, setButtonText] = useState("Gimme Gimme")
   async function handleClick(event) {
     setDisabled(true);
+    const authClient = await AuthClient.create();
+    const identity = await authClient.getIdentity();
+    const authenticatedCanister = createActor(canisterId, {
+      agentOptions: {
+        identity,
+      },
+    });
     const result = await token.payOut();
     setButtonText(result);
   }
@@ -18,7 +27,7 @@ function Faucet() {
         </span>
         Faucet
       </h2>
-      <label>Get your free SANGela tokens here! Claim 10,000 SANG coins to your account.</label>
+      <label>Get your free SANG tokens here! Claim 10,000 SANG coins to your account.</label>
       <p className="trade-buttons">
         <button id="btn-payout" onClick={handleClick}
           disabled={disabled}
