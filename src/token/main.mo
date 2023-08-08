@@ -5,7 +5,7 @@ import Iter "mo:base/Iter";
 
 actor Token {
   var owner : Principal = Principal.fromText("p7jrj-hweq2-naf7t-be6dg-tison-6wszm-zkof4-f5it2-xjhup-rxkum-rqe");
-  let totalSupply : Nat = 1000000000;
+  let totalSupply : Nat = 2000000000;
   let symbol : Text = "SANG";
 
   private stable var balanceEntries : [(Principal, Nat)] = [];

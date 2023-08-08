@@ -9,7 +9,7 @@ function Transfer() {
   const [amount, setAmount] = useState("");
   const [isDisabled, setDisabled] = useState(false);
   const [feedback, setFeedback] = useState("");
-  const [isHidden, setHidden] = useSatte(true);
+  const [isHidden, setHidden] = useState(true);
 
 
   async function handleClick() {
